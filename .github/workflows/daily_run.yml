@@ -3,7 +3,7 @@ name: Daily Run
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 8 * * *"
 
 jobs:
   run-script:
