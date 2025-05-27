@@ -2,7 +2,7 @@ name: Daily Run
 
 on:
   schedule:
-    - cron: '* * * * *'  # Every day в 08:00 UTC
+    - cron: "* * * * *"
 
 
 jobs:
