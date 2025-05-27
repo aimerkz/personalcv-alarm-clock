@@ -1,7 +1,6 @@
 import sys
 import logging
 import tempfile
-import os
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -22,10 +21,8 @@ def _set_options() -> Options:
     options.add_argument("--mute-audio")
     options.add_argument("--enable-javascript")
     options.add_argument("--disable-dev-shm-usage")
-
-    user_data_dir = os.path.join(tempfile.gettempdir(), "chrome_profile")
-    os.makedirs(user_data_dir, exist_ok=True)
-    options.add_argument(f"--user-data-dir={user_data_dir}")
+    options.add_argument("--disable-gpu")
+    options.add_argument(f"--user-data-dir={tempfile.mkdtemp()}")
 
     return options
 
