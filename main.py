@@ -1,5 +1,7 @@
 import sys
 import logging
+import tempfile
+import os
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,14 +11,28 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.options import Options
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(logging.StreamHandler(sys.stdout))
+
+
+def _set_options() -> Options:
+    options = Options()
+
+    options.add_argument("--headless")
+    options.add_argument("--mute-audio")
+    options.add_argument("--enable-javascript")
+    options.add_argument("--disable-dev-shm-usage")
+
+    user_data_dir = os.path.join(tempfile.gettempdir(), "chrome_profile")
+    os.makedirs(user_data_dir, exist_ok=True)
+    options.add_argument(f"--user-data-dir={user_data_dir}")
+
+    return options
 
 
 def main() -> None:
     service = webdriver.ChromeService(log_output=sys.stdout, port=0)
-
-    options = Options()
-    options.add_argument("--mute-audio")
-    options.add_argument("--enable-javascript")
+    options = _set_options()
 
     driver = webdriver.Chrome(service=service, options=options)
     driver.get("https://amerkulovcv.streamlit.app")
