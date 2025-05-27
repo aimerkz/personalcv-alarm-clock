@@ -1,9 +1,8 @@
 name: Daily Run
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 8 * * *'  # Every day в 08:00 UTC
+    - cron: '* * * * *'  # Every day в 08:00 UTC
 
 
 jobs:
