@@ -1,0 +1,16 @@
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+.idea/
+.vscode/
+
+.venv
+.env
+.venv/
+.env/
+.python-version
+.ruff_cache/
