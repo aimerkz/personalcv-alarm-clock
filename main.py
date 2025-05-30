@@ -27,13 +27,7 @@ def _set_options() -> Options:
     return options
 
 
-def main() -> None:
-    service = webdriver.ChromeService(log_output=sys.stdout, port=0)
-    options = _set_options()
-
-    driver = webdriver.Chrome(service=service, options=options)
-    driver.get("https://amerkulovcv.streamlit.app")
-
+def _check_and_clink_button(driver: webdriver.Chrome) -> None:
     try:
         button = WebDriverWait(driver, 10).until(
             ec.element_to_be_clickable(
@@ -41,6 +35,27 @@ def main() -> None:
             )
         )
         button.click()
+        logger.info("Wake-up button clicked")
+    except TimeoutException:
+        logger.error("No wake-up button found, proceeding directly")
+
+
+def main() -> None:
+    service = webdriver.ChromeService(log_output=sys.stdout, port=0)
+    options = _set_options()
+
+    driver = webdriver.Chrome(service=service, options=options)
+    driver.get("https://amerkulovcv.streamlit.app")
+
+    _check_and_clink_button(driver)
+
+    try:
+        iframe = WebDriverWait(driver, 15).until(
+            ec.presence_of_element_located(
+                (By.TAG_NAME, "iframe"),
+            )
+        )
+        driver.switch_to.frame(iframe)
 
         WebDriverWait(driver, 10).until(
             ec.presence_of_element_located(
@@ -50,7 +65,6 @@ def main() -> None:
     except TimeoutException:
         logger.error("Timed out waiting for page to load")
     finally:
-        logger.info("Success, by!")
         driver.quit()
 
 
