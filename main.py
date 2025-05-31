@@ -27,7 +27,7 @@ def _set_options() -> Options:
     return options
 
 
-def _check_and_clink_button(driver: webdriver.Chrome) -> None:
+def _check_and_click_button(driver: webdriver.Chrome) -> None:
     try:
         button = WebDriverWait(driver, 10).until(
             ec.element_to_be_clickable(
@@ -47,7 +47,7 @@ def main() -> None:
     driver = webdriver.Chrome(service=service, options=options)
     driver.get("https://amerkulovcv.streamlit.app")
 
-    _check_and_clink_button(driver)
+    _check_and_click_button(driver)
 
     try:
         iframe = WebDriverWait(driver, 15).until(

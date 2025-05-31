@@ -3,7 +3,7 @@ name: Daily Run
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "0 5 * * *"
 
 jobs:
   run-script:
@@ -19,12 +19,13 @@ jobs:
           python-version: "3.12"
 
       - name: Set up uv
-        run: |
-          curl -LsSf https://astral.sh/uv/install.sh | sh -
-          echo "$HOME/.local/bin" >> $GITHUB_PATH
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          activate-environment: true
 
       - name: Install dependencies
-        run: uv sync --no-install-project && echo "$PWD/.venv/bin" >> $GITHUB_PATH
+        run: uv sync --no-install-project --no-dev && echo "$PWD/.venv/bin" >> $GITHUB_PATH
 
       - name: Run Python script
         run: uv run python3 main.py
