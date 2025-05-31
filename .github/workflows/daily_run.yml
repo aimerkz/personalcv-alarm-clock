@@ -25,7 +25,7 @@ jobs:
           activate-environment: true
 
       - name: Install dependencies
-        run: uv sync --no-install-project --no-dev && echo "$PWD/.venv/bin" >> $GITHUB_PATH
+        run: uv sync --no-install-project --no-dev -n -q
 
       - name: Run Python script
         run: uv run python3 main.py

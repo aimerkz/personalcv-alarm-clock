@@ -57,7 +57,7 @@ def main() -> None:
         )
         driver.switch_to.frame(iframe)
 
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 20).until(
             ec.presence_of_element_located(
                 (By.ID, "artem-merkulov"),
             )
