@@ -28,4 +28,4 @@ jobs:
         run: uv sync --no-install-project --no-dev -n -q
 
       - name: Run Python script
-        run: uv run python3 main.py
+        run: uv run python3 src/main.py
