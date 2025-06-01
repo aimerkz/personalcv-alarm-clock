@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 
 from selenium import webdriver
 
+from config.settings import Settings
+
 
 class BaseAlarmService(ABC):
     @abstractmethod
@@ -11,5 +13,5 @@ class BaseAlarmService(ABC):
 
 class BaseAlarmServiceFactory(ABC):
     @abstractmethod
-    def create(self, driver: webdriver.Chrome) -> BaseAlarmService:
+    def create(self, driver: webdriver.Chrome, config: Settings) -> BaseAlarmService:
         pass
