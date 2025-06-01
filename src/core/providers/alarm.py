@@ -1,6 +1,7 @@
 from dishka import Provider, Scope, provide
 from selenium import webdriver
 
+from config.settings import Settings
 from services.alarm.factory import AlarmServiceFactory
 from services.interfaces import BaseAlarmService, BaseAlarmServiceFactory
 
@@ -15,5 +16,6 @@ class AlarmProvider(Provider):
         self,
         driver: webdriver.Chrome,
         factory: BaseAlarmServiceFactory,
+        settings: Settings,
     ) -> BaseAlarmService:
-        return factory.create(driver)
+        return factory.create(driver, settings)
