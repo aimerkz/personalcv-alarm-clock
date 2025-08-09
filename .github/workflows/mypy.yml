@@ -1,0 +1,41 @@
+name: Mypy
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "latest"
+          activate-environment: true
+
+      - name: Install dependencies
+        run: uv sync --no-install-project --no-dev -n -q
+
+      - name: Set up mypy
+        uses: tsuyoshicho/action-mypy@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          level: warning
+          workdir: .
+          setup_method: install
+          filter_mode: diff_context
+          execute_command: "uv run mypy --config-file pyproject.toml"
+          fail_on_error: false

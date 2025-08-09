@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
 from config.settings import Settings
+from core import constants
 from services.interfaces import BaseAlarmService
 
 
@@ -28,7 +29,7 @@ class AlarmService(BaseAlarmService):
                 ec.element_to_be_clickable(
                     (
                         By.XPATH,
-                        '//button[normalize-space()="Yes, get this app back up!"]',
+                        constants.XPATH,
                     ),
                 )
             ):
@@ -40,13 +41,13 @@ class AlarmService(BaseAlarmService):
                 self.driver, self.settings.SWITCH_TO_IFRAME_TIMEOUT
             ).until(
                 ec.presence_of_element_located(
-                    (By.TAG_NAME, "iframe"),
+                    (By.TAG_NAME, constants.IFRAME),
                 )
             )
             self.driver.switch_to.frame(iframe)
 
             WebDriverWait(self.driver, self.settings.PAGE_LOAD_TIMEOUT).until(
                 ec.presence_of_element_located(
-                    (By.ID, "artem-merkulov"),
+                    (By.ID, constants.ELEM_ID),
                 )
             )
