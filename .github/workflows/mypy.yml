@@ -16,7 +16,7 @@ jobs:
 
       - name: Check GitHub token user
         run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/user
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/aimerkz
 
       - name: Set up Python
         uses: actions/setup-python@v5
