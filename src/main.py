@@ -6,7 +6,7 @@ from core.providers.webdriver import WebDriverProvider
 from services.interfaces import BaseAlarmService
 
 
-def main():
+def main() -> int:
     container = make_container(
         WebDriverProvider(),
         AlarmProvider(),
