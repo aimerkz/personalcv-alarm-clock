@@ -26,7 +26,7 @@ jobs:
           activate-environment: true
 
       - name: Install dependencies
-        run: uv sync --no-install-project --no-dev -n -q
+        run: uv sync --no-install-project -n -q
 
       - name: Set up mypy
         uses: tsuyoshicho/action-mypy@v4
@@ -35,7 +35,7 @@ jobs:
           reporter: github-pr-review
           level: warning
           workdir: .
-          setup_method: install
+          setup_method: nothing
           filter_mode: diff_context
           execute_command: "uv run mypy --config-file pyproject.toml"
           fail_on_error: false
